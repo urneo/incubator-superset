@@ -1,0 +1,101 @@
+@startuml
+
+skinparam classBackgroundColor White
+skinparam classArrowColor Black
+skinparam classBorderColor Black
+skinparam stereotypeCBackgroundColor Gray
+
+hide circle
+hide members
+
+' ModelView -u-|> RestCRUDView
+ModelView <|-- SupersetModelView
+
+SupersetModelView <|-- QueryView
+SupersetModelView <|-- SavedQueryView
+SupersetModelView <|-- DatabaseView
+SupersetModelView <|-- AccessRequestsModelView
+SupersetModelView <|-- SliceModelView
+SupersetModelView <|-- DashboardModelView
+SupersetModelView <|-- LogModelView
+SupersetModelView <|-- CssTemplateModelView
+SavedQueryViewApi -u-|> SavedQueryView
+
+DeleteMixin <|-- SavedQueryView
+DeleteMixin <|-- SliceModelView
+DeleteMixin <|-- AccessRequestsModelView
+DeleteMixin <|-- DashboardModelView
+DeleteMixin <|-- DatabaseView
+
+DatabaseView <|-- DatabaseAsync
+DatabaseView <|-- DatabaseTablesAsync
+SliceModelView <|-- SliceAsync
+SliceModelView <|-- SliceAddView
+
+DashboardModelView <|-- DashboardModelViewAsync
+CssTemplateModelView <|-- CssTemplateAsyncModelView
+
+BaseCRUDView -u-|> BaseModelView
+BaseCRUDView <|-- MasterDetailView
+BaseCRUDView <|-- RestCRUDView
+BaseView <|-- BaseFormView
+BaseView <|-- IndexView
+BaseView <|-- MultipleView
+BaseView <|-- UtilView
+BaseView <|-- BaseModelView
+BaseFormView <|-- SimpleFormView
+BaseFormView <|-- PublicFormView
+
+BaseSupersetView -u-|> BaseView
+BaseSupersetView <|-- Superset
+BaseSupersetView <|-- SqlLab
+BaseSupersetView <|-- KV
+BaseSupersetView <|-- R
+
+SupersetFilter -u-|> BaseFilter
+SupersetFilter <|-- SliceFilter
+SupersetFilter <|-- DashboardFilter
+
+
+class ModelView <RestCRUDView> {
+    +list()
+    +show(pk)
+    +add()
+    +edit(pk)
+    +delete(pk)
+    +download(filename)
+    +action(name, pk)
+    +action_post()
+}
+
+class SliceFilter <core.py>
+class DashboardFilter <core.py>
+class DatabaseView <core.py>
+class DatabaseAsync <core.py>
+class DatabaseTablesAsync <core.py>
+class AccessRequestsModelView <core.py>
+class SliceModelView <core.py>
+class SliceAsync <core.py>
+class SliceAddView <core.py>
+class DashboardModelView <core.py>
+class DashboardModelViewAsync <core.py>
+class LogModelView <core.py>
+class KV <core.py>
+class R <core.py>
+class Superset <core.py>
+class CssTemplateModelView <core.py>
+class CssTemplateAsyncModelView <core.py>
+class RegexConverter <core.py>
+
+class BaseSupersetView <core.py>
+class SupersetModelView <core.py>
+class ListWidgetWithCheckboxes <core.py>
+class DeleteMixin <core.py>
+class SupersetFilter <core.py>
+class DatasourceFilter <core.py>
+
+class MasterDetailView {
+    +list(pk=None)
+}
+
+@enduml

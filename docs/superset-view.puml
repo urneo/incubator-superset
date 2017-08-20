@@ -1,0 +1,39 @@
+@startuml
+
+skinparam classBackgroundColor White
+skinparam classArrowColor Black
+skinparam classBorderColor Black
+skinparam stereotypeCBackgroundColor Gray
+
+hide circle
+hide members
+
+navbar -u-> navbar_menu
+navbar -u-> navbar_right
+
+baselayout <|-r- base
+baselayout -l-> navbar
+baselayout --> flash_wrapper
+
+basic -u-> lib
+basic -l-> navbar
+
+basic <-- dashboard
+basic <-- welcome
+basic <-- add_slice
+basic <-- request_access
+basic <-- import_dashboards
+basic <-- theme
+basic <-- paper_theme
+
+flash_wrapper <-- welcome
+flash_wrapper <-- request_access
+flash_wrapper <-- import_dashboards
+
+base <|-- index
+base <|-- list
+init <|-- baselayout
+
+class navbar
+
+@enduml

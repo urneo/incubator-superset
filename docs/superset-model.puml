@@ -1,0 +1,33 @@
+@startuml
+
+skinparam classBackgroundColor White
+skinparam classArrowColor Black
+skinparam classBorderColor Black
+skinparam stereotypeCBackgroundColor Gray
+
+hide circle
+hide members
+
+Model <|-u- Dashboard
+Model <|-u- Slice
+Model <|-u- Database
+Model <|-u- DatasourceAccessRequest
+Model <|-u- SavedQuery
+Model <|-u- CssTemplate
+Model <|-u- Url
+Model <|-u- KeyValue
+Model <|-u- Log
+Model <|-u- FavStar
+
+AuditMixinNullable <|-u- Dashboard
+AuditMixinNullable <|-u- Slice
+AuditMixinNullable <|-u- Database
+AuditMixinNullable <|-u- DatasourceAccessRequest
+AuditMixinNullable <|-u- SavedQuery
+AuditMixinNullable <|-u- CssTemplate
+AuditMixinNullable <|-u- Url
+
+ImportMixin <|-u- Dashboard
+ImportMixin <|-u- Slice
+
+@enduml

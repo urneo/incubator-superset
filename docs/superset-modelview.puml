@@ -1,0 +1,140 @@
+@startuml
+
+skinparam classBackgroundColor White
+skinparam classArrowColor Black
+skinparam classBorderColor Black
+skinparam stereotypeCBackgroundColor Gray
+
+hide circle
+hide members
+
+' ModelView -u-|> RestCRUDView
+ModelView <|-- SupersetModelView
+' ModelView .r.> Model
+
+SupersetModelView <|-- DashboardModelView
+SupersetModelView <|-- SliceModelView
+SupersetModelView <|-- DatabaseView
+SupersetModelView <|-- QueryView
+SupersetModelView <|-- SavedQueryView
+SavedQueryViewApi -u-|> SavedQueryView
+
+SupersetModelView <|-- CssTemplateModelView
+SupersetModelView <|-- AccessRequestsModelView
+SupersetModelView <|-- LogModelView
+
+DeleteMixin <|-- DashboardModelView
+DeleteMixin <|-- SliceModelView
+DeleteMixin <|-- DatabaseView
+DeleteMixin <|-- SavedQueryView
+DeleteMixin <|-- AccessRequestsModelView
+
+DatabaseView <|-- DatabaseAsync
+DatabaseView <|-- DatabaseTablesAsync
+SliceModelView <|-- SliceAsync
+SliceModelView <|-- SliceAddView
+
+DashboardModelView <|-- DashboardModelViewAsync
+CssTemplateModelView <|-- CssTemplateAsyncModelView
+
+DashboardModelView ...> Dashboard
+SliceModelView ...> Slice
+DatabaseView ..> Database
+QueryView ...> Query
+SavedQueryView ...> SavedQuery
+CssTemplateModelView ..> CssTemplate
+AccessRequestsModelView ..> DatasourceAccessRequest
+LogModelView ...> Log
+
+Model <|-u- Dashboard
+Model <|-u- Slice
+Model <|-u- Database
+Model <|-u- DatasourceAccessRequest
+Model <|-u- Query
+Model <|-u- SavedQuery
+Model <|-u- CssTemplate
+Model <|-u- Url
+' Model <|-u- KeyValue
+Model <|-u- Log
+' Model <|-u- FavStar
+
+AuditMixinNullable <|-u- Dashboard
+AuditMixinNullable <|-u- Slice
+AuditMixinNullable <|-u- Database
+AuditMixinNullable <|-u- DatasourceAccessRequest
+AuditMixinNullable <|-u- SavedQuery
+AuditMixinNullable <|-u- CssTemplate
+AuditMixinNullable <|-u- Url
+
+ImportMixin <|-u- Dashboard
+ImportMixin <|-u- Slice
+
+' BaseCRUDView -u-|> BaseModelView
+' BaseCRUDView <|-- MasterDetailView
+' BaseCRUDView <|-- RestCRUDView
+' BaseView <|-- BaseFormView
+' BaseView <|-- IndexView
+' BaseView <|-- MultipleView
+' BaseView <|-- UtilView
+' BaseView <|-- BaseModelView
+' BaseFormView <|-- SimpleFormView
+' BaseFormView <|-- PublicFormView
+
+' BaseSupersetView -u-|> BaseView
+' BaseSupersetView <|-- Superset
+' BaseSupersetView <|-- SqlLab
+' BaseSupersetView <|-- KV
+' BaseSupersetView <|-- R
+
+' SupersetFilter -u-|> BaseFilter
+' SupersetFilter <|-- SliceFilter
+' SupersetFilter <|-- DashboardFilter
+
+
+class ModelView <RestCRUDView> {
+    +list()
+    +show(pk)
+    +add()
+    +edit(pk)
+    +delete(pk)
+    +download(filename)
+    +action(name, pk)
+    +action_post()
+}
+
+class QueryView <sql_lab.py>
+class SavedQueryViewApi <sql_lab.py>
+
+class DashboardFilter <core.py>
+class SliceFilter <core.py>
+
+class DashboardModelView <core.py>
+class DashboardModelViewAsync <core.py>
+class SliceModelView <core.py>
+class SliceAsync <core.py>
+class SliceAddView <core.py>
+class DatabaseView <core.py>
+class DatabaseAsync <core.py>
+class DatabaseTablesAsync <core.py>
+
+class Superset <core.py>
+class CssTemplateModelView <core.py>
+class CssTemplateAsyncModelView <core.py>
+class AccessRequestsModelView <core.py>
+class LogModelView <core.py>
+class KV <core.py>
+class R <core.py>
+class RegexConverter <core.py>
+
+class SupersetModelView <base.py>
+class BaseSupersetView <base.py>
+class ListWidgetWithCheckboxes <base.py>
+class DeleteMixin <base.py>
+class SupersetFilter <base.py>
+class DatasourceFilter <base.py>
+
+class MasterDetailView {
+    +list(pk=None)
+}
+
+@enduml
